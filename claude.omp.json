@@ -1,0 +1,113 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 3,
+  "final_space": false,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "text",
+          "style": "powerline",
+          "foreground": "#A78BFA",
+          "template": " π ",
+          "background": "#0A090F",
+          "powerline_symbol": ""
+        },
+        {
+          "type": "text",
+          "style": "powerline",
+          "foreground": "#E8E6F0",
+          "template": "{{ if .Env.CC_MODEL }}<#5C5C6E></>  {{ .Env.CC_MODEL }}{{ if .Env.CC_EFFORT }} <#5C5C6E>·</> <#F0A8E0></> {{ .Env.CC_EFFORT }}{{ end }} {{ end }}",
+          "background": "#0A090F",
+          "powerline_symbol": ""
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "foreground": "#C4B5FD",
+          "properties": {
+            "style": "full",
+            "home_icon": "~",
+            "folder_separator_icon": "/"
+          },
+          "template": "<#5C5C6E></> <#A78BFA></> {{ .Path }} ",
+          "background": "#0A090F",
+          "powerline_symbol": ""
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "foreground": "#86EFAC",
+          "properties": {
+            "fetch_status": true,
+            "branch_icon": ""
+          },
+          "cache": {
+            "duration": "5s",
+            "strategy": "folder"
+          },
+          "template": "<#5C5C6E></> <#6B7280></> {{ .HEAD }}{{ if .Staging.Changed }} <#86EFAC>{{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }} <#FDE68A>{{ .Working.String }}</>{{ end }} ",
+          "background": "#0A090F",
+          "powerline_symbol": ""
+        },
+        {
+          "type": "text",
+          "style": "powerline",
+          "foreground": "#B4A0F0",
+          "foreground_templates": [
+            "{{ if ge (atoi .Env.CC_CTX_N) 90 }}#F87171{{ end }}",
+            "{{ if ge (atoi .Env.CC_CTX_N) 75 }}#FBBF24{{ end }}",
+            "#B4A0F0"
+          ],
+          "template": "{{ if .Env.CC_CTX }}<#5C5C6E></> <#E8E6F0></> {{ .Env.CC_CTX }}{{ if .Env.CC_THINK }} <#A78BFA></>{{ end }} {{ end }}",
+          "background": "#0A090F",
+          "powerline_symbol": ""
+        },
+        {
+          "type": "text",
+          "style": "powerline",
+          "foreground": "#E879F9",
+          "template": "{{ if .Env.CC_COST }}<#5C5C6E></> {{ .Env.CC_COST }} {{ end }}",
+          "background": "#0A090F",
+          "powerline_symbol": ""
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "overflow": "hide",
+      "segments": [
+        {
+          "type": "text",
+          "style": "powerline",
+          "foreground": "#C4B5FD",
+          "template": "{{ if .Env.CC_AGENTS }}<#5C5C6E></> <#A78BFA></>{{ .Env.CC_AGENTS }} {{ end }}",
+          "background": "#0A090F",
+          "powerline_symbol": "",
+          "invert_powerline": true
+        },
+        {
+          "type": "text",
+          "style": "powerline",
+          "foreground": "#C4B5FD",
+          "template": "{{ if .Env.CC_MCP }}<#5C5C6E></> <#A78BFA></> {{ .Env.CC_MCP }} {{ end }}",
+          "background": "#0A090F",
+          "powerline_symbol": "",
+          "invert_powerline": true
+        },
+        {
+          "type": "text",
+          "style": "powerline",
+          "foreground": "#FDE68A",
+          "template": "{{ if .Env.CC_SESSION }}<#5C5C6E></> {{ .Env.CC_SESSION }} {{ end }}",
+          "background": "#0A090F",
+          "powerline_symbol": "",
+          "invert_powerline": true
+        }
+      ]
+    }
+  ]
+}
