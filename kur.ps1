@@ -23,7 +23,7 @@ if (Test-Path $settingsPath) {
 } else {
   $s = New-Object PSObject
 }
-$cmd = 'node ' + ((Join-Path $dest 'statusline.mjs') -replace '\','/')
+$cmd = 'node ' + ((Join-Path $dest 'statusline.mjs') -replace '\\','/')
 $sl  = [PSCustomObject]@{ type = 'command'; command = $cmd }
 $s | Add-Member -NotePropertyName statusLine -NotePropertyValue $sl -Force
 [IO.File]::WriteAllText($settingsPath, ($s | ConvertTo-Json -Depth 50), (New-Object Text.UTF8Encoding $false))

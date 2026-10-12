@@ -12,7 +12,8 @@ const CONFIG = join(HERE, 'claude.omp.json');
 
 let d = {};
 try {
-  d = JSON.parse(readFileSync(0, 'utf8')) || {};
+  // PowerShell pipe'i basa BOM ekler; Claude Code eklemez ama elle testte JSON.parse patlar.
+  d = JSON.parse(readFileSync(0, 'utf8').replace(/^﻿/, '')) || {};
 } catch {
   // Bos/bozuk stdin: segmentler bos kalir, bar yine de cizilir.
 }
@@ -71,13 +72,14 @@ function runningAgents(path) {
     const started = new Set();
     const finished = new Set();
     for (const line of lines) {
-      if (!line || (!line.includes('"Task"') && !line.includes('tool_result'))) continue;
+      // Arac adi eski surumlerde "Task", yenilerde "Agent".
+      if (!line || (!line.includes('"Task"') && !line.includes('"Agent"') && !line.includes('tool_result'))) continue;
       let o;
       try { o = JSON.parse(line); } catch { continue; }
       const content = o?.message?.content;
       if (!Array.isArray(content)) continue;
       for (const c of content) {
-        if (c?.type === 'tool_use' && c?.name === 'Task' && c?.id) started.add(c.id);
+        if (c?.type === 'tool_use' && (c?.name === 'Task' || c?.name === 'Agent') && c?.id) started.add(c.id);
         else if (c?.type === 'tool_result' && c?.tool_use_id) finished.add(c.tool_use_id);
       }
     }
